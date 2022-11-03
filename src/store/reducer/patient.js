@@ -12,12 +12,6 @@ import {
     PATIENT_DELETE_REQUEST,
     PATIENT_DELETE_SUCCESS,
     PATIENT_DELETE_FAIL,
-    PATIENT_REPORT_LIST_ON_DATE_FAIL,
-    PATIENT_REPORT_LIST_ON_DATE_SUCCESS,
-    PATIENT_REPORT_LIST_ON_DATE_REQUEST,
-    PATIENT_REPORT_REQUEST,
-    PATIENT_REPORT_SUCCESS,
-    PATIENT_REPORT_FAIL,
     ALL_DOCTORS_AGAINST_PATIENT_REQUEST,
     ALL_DOCTORS_AGAINST_PATIENT_SUCCESS,
     ALL_DOCTORS_AGAINST_PATIENT_FAIL,
@@ -99,35 +93,6 @@ export const patientDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true, patientDelete: action.payload };
         case PATIENT_DELETE_FAIL:
             return { loading: false, success: false, error: action.payload };
-        default:
-            return state;
-    }
-};
-
-export const PatientReportListOnSpecificDateReducer = (state = {}, action) => {
-    switch (action.type) {
-        case PATIENT_REPORT_LIST_ON_DATE_REQUEST:
-            return { loading: true };
-        case PATIENT_REPORT_LIST_ON_DATE_SUCCESS:
-            return { loading: false, patientReportList: action.payload };
-        case PATIENT_REPORT_LIST_ON_DATE_FAIL:
-            return { loading: false, error: action.payload };
-        default:
-            return state;
-    }
-};
-
-// For patient report according date and patient id
-
-export const patientReportReducer = (state = {}, action) => {
-    switch (action.type) {
-        case PATIENT_REPORT_REQUEST:
-            return { loading: true };
-        case PATIENT_REPORT_SUCCESS:
-            return { loading: false, patientReport: action.payload };
-        case PATIENT_REPORT_FAIL:
-            return { loading: false, error: action.payload };
-
         default:
             return state;
     }

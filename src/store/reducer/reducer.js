@@ -5,14 +5,10 @@ import {
     patientAddReducer,
     patientEditReducer,
     patientDeleteReducer,
-    PatientReportListOnSpecificDateReducer,
-    patientReportReducer,
     allDoctorsAgainstPateintsReducer,
     postDoctorsIdReducer
 } from './patient';
 import { doctorListReducer, doctorAddReducer, doctorEditReducer, doctorDeleteReducer } from './doctorReducer';
-import { nursesListReducer, nursesAddReducer, nursesEditReducer, nursesDeleteReducer } from './nursesReducer';
-import { feedbackListReducer } from './feedbackReducer';
 
 // reducer import
 import customizationReducer from './customizationReducer';
@@ -28,17 +24,11 @@ const reducer = combineReducers({
     patientAdd: patientAddReducer,
     patientEdit: patientEditReducer,
     patientDelete: patientDeleteReducer,
-    patientReportListDate: PatientReportListOnSpecificDateReducer,
-    patientReport: patientReportReducer,
+
     doctorList: doctorListReducer,
     doctorAdd: doctorAddReducer,
     doctorEdit: doctorEditReducer,
-    doctorDelete: doctorDeleteReducer,
-    nursesList: nursesListReducer,
-    nursesAdd: nursesAddReducer,
-    nursesEdit: nursesEditReducer,
-    nursesDelete: nursesDeleteReducer,
-    feedbackList: feedbackListReducer
+    doctorDelete: doctorDeleteReducer
 });
 
 export default reducer;

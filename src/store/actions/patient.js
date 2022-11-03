@@ -12,12 +12,6 @@ import {
     PATIENT_DELETE_REQUEST,
     PATIENT_DELETE_SUCCESS,
     PATIENT_DELETE_FAIL,
-    PATIENT_REPORT_LIST_ON_DATE_REQUEST,
-    PATIENT_REPORT_LIST_ON_DATE_SUCCESS,
-    PATIENT_REPORT_LIST_ON_DATE_FAIL,
-    PATIENT_REPORT_REQUEST,
-    PATIENT_REPORT_SUCCESS,
-    PATIENT_REPORT_FAIL,
     ALL_DOCTORS_AGAINST_PATIENT_REQUEST,
     ALL_DOCTORS_AGAINST_PATIENT_SUCCESS,
     ALL_DOCTORS_AGAINST_PATIENT_FAIL,
@@ -165,50 +159,6 @@ export const patientDeleteAction = (id) => async (dispatch) => {
         dispatch({
             type: PATIENT_DELETE_FAIL,
             payload: error?.response && error?.response?.data?.Message
-        });
-    }
-};
-
-export const PatientReportListOnDate = (userId) => async (dispatch) => {
-    try {
-        dispatch({
-            type: PATIENT_REPORT_LIST_ON_DATE_REQUEST
-        });
-
-        const url = `${config.SERVER_IP}/reportpatientrouter/patientreport/${userId}`;
-
-        const { data } = await Axios.get(url);
-
-        dispatch({
-            type: PATIENT_REPORT_LIST_ON_DATE_SUCCESS,
-            payload: data
-        });
-    } catch (error) {
-        dispatch({
-            type: PATIENT_REPORT_LIST_ON_DATE_FAIL,
-            payload: error
-        });
-    }
-};
-
-// Patient Report Action
-
-export const PatientReportAction = (patientId, date) => async (dispatch) => {
-    try {
-        dispatch({
-            type: PATIENT_REPORT_REQUEST
-        });
-
-        const { data } = await Axios.get(`${config.SERVER_IP}/report/report/${patientId}/${date}`);
-
-        dispatch({
-            type: PATIENT_REPORT_SUCCESS,
-            payload: data
-        });
-    } catch (error) {
-        dispatch({
-            type: PATIENT_REPORT_FAIL,
-            payload: error
         });
     }
 };

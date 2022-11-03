@@ -14,12 +14,8 @@ const AuthLoginPage = Loadable(lazy(() => import('views/pages/authentication/aut
 // main components imports
 
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const CalendarPage = Loadable(lazy(() => import('views/calendar')));
 const PatientsList = Loadable(lazy(() => import('views/patient/PatientList')));
-const PatientReport = Loadable(lazy(() => import('views/patient/PatientReport')));
 const DoctorsList = Loadable(lazy(() => import('views/doctor/DoctorList')));
-const NursesList = Loadable(lazy(() => import('views/nurse/Nurselist')));
-const PatientFeedback = Loadable(lazy(() => import('views/feedback/PatientFeedback')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -50,14 +46,7 @@ export default function ThemeRoutes() {
                     path: '/dashboard',
                     element: token ? <DashboardDefault /> : <Navigate to="/login" />
                 },
-                {
-                    path: '/calendar',
-                    element: token ? <CalendarPage /> : <Navigate to="/login" />
-                },
-                {
-                    path: '/patientreport',
-                    element: token ? <PatientReport /> : <Navigate to="/login" />
-                },
+
                 {
                     path: '/patientslist',
                     element: token ? <PatientsList /> : <Navigate to="/login" />
@@ -65,14 +54,6 @@ export default function ThemeRoutes() {
                 {
                     path: '/doctorslist',
                     element: token ? <DoctorsList /> : <Navigate to="/login" />
-                },
-                {
-                    path: '/nurseslist',
-                    element: token ? <NursesList /> : <Navigate to="/login" />
-                },
-                {
-                    path: '/patientfeedback',
-                    element: token ? <PatientFeedback /> : <Navigate to="/login" />
                 }
             ]
         }

@@ -1,11 +1,11 @@
 // assets
-import { IconBrandChrome, IconCalendar, IconStethoscope, IconWoman } from '@tabler/icons';
+import { IconBrandChrome, IconStethoscope, IconWoman } from '@tabler/icons';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 // constant
 const icons = {
     IconBrandChrome,
-    IconCalendar,
+
     IconStethoscope,
     IconWoman,
     AccessibleIcon,
@@ -18,14 +18,6 @@ const other = {
     id: 'user-all-crud',
     type: 'group',
     children: [
-        {
-            id: 'calendar',
-            title: 'Calendar',
-            type: 'item',
-            url: '/calendar',
-            icon: icons.IconCalendar,
-            breadcrumbs: false
-        },
         {
             id: 'patientlist',
             title: 'Patients',
@@ -40,22 +32,6 @@ const other = {
             type: 'item',
             url: '/doctorslist',
             icon: icons.IconStethoscope,
-            breadcrumbs: false
-        },
-        {
-            id: 'nurselist',
-            title: 'Nurses',
-            type: 'item',
-            url: '/nurseslist',
-            icon: icons.IconWoman,
-            breadcrumbs: false
-        },
-        {
-            id: 'patientfeedback',
-            title: 'Patient Feedback',
-            type: 'item',
-            url: '/patientfeedback',
-            icon: icons.ChatOutlinedIcon,
             breadcrumbs: false
         }
     ]
