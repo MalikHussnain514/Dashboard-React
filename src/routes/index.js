@@ -14,8 +14,8 @@ const AuthLoginPage = Loadable(lazy(() => import('views/pages/authentication/aut
 // main components imports
 
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const PatientsList = Loadable(lazy(() => import('views/patient/PatientList')));
-const DoctorsList = Loadable(lazy(() => import('views/doctor/DoctorList')));
+const BotList = Loadable(lazy(() => import('views/bot/BotList')));
+const EmailList = Loadable(lazy(() => import('views/email/EmailList')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -48,12 +48,12 @@ export default function ThemeRoutes() {
                 },
 
                 {
-                    path: '/patientslist',
-                    element: token ? <PatientsList /> : <Navigate to="/login" />
+                    path: '/botslist',
+                    element: token ? <BotList /> : <Navigate to="/login" />
                 },
                 {
-                    path: '/doctorslist',
-                    element: token ? <DoctorsList /> : <Navigate to="/login" />
+                    path: '/mailslist',
+                    element: token ? <EmailList /> : <Navigate to="/login" />
                 }
             ]
         }

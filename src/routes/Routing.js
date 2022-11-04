@@ -11,8 +11,8 @@ import MainLayout from 'layout/MainLayout';
 const AuthLoginPage = Loadable(lazy(() => import('views/pages/authentication/authentication/Login')));
 // Main components
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const PatientsList = Loadable(lazy(() => import('views/patient/PatientList')));
-const DoctorsList = Loadable(lazy(() => import('views/doctor/DoctorList')));
+const BotList = Loadable(lazy(() => import('views/bot/BotList')));
+const EmailList = Loadable(lazy(() => import('views/email/EmailList')));
 
 export default function AppRoutes() {
     return (
@@ -21,8 +21,8 @@ export default function AppRoutes() {
                 <MainLayout>
                     <Route path="/" element={<DashboardDefault />} theme={<MainLayout />} />
                     <Route path="/dashboard" element={<DashboardDefault />} />
-                    <Route path="/patientslist" element={<PatientsList />} />
-                    <Route path="/doctorslist" element={<DoctorsList />} />
+                    <Route path="/botslist" element={<BotList />} />
+                    <Route path="/mailslist" element={<EmailList />} />
                 </MainLayout>
             </Route>
             <Route path="/login" element={<AuthLoginPage />} />

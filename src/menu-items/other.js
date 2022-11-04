@@ -1,14 +1,11 @@
 // assets
-import { IconBrandChrome, IconStethoscope, IconWoman } from '@tabler/icons';
+import { IconMicrophone, IconMail } from '@tabler/icons';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 // constant
 const icons = {
-    IconBrandChrome,
-
-    IconStethoscope,
-    IconWoman,
-    AccessibleIcon,
+    IconMicrophone,
+    IconMail,
     ChatOutlinedIcon
 };
 
@@ -19,19 +16,19 @@ const other = {
     type: 'group',
     children: [
         {
-            id: 'patientlist',
-            title: 'Patients',
+            id: 'botlist',
+            title: 'Bots',
             type: 'item',
-            url: '/patientslist',
-            icon: icons.AccessibleIcon,
+            url: '/botslist',
+            icon: icons.IconMicrophone,
             breadcrumbs: false
         },
         {
-            id: 'doctorlist',
-            title: 'Doctors',
+            id: 'maillist',
+            title: 'Emails',
             type: 'item',
-            url: '/doctorslist',
-            icon: icons.IconStethoscope,
+            url: '/mailslist',
+            icon: icons.IconMail,
             breadcrumbs: false
         }
     ]
