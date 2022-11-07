@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-      "name": "byonyks-webPortal",
+      "name": "Voice-App",
       "version": "3.0.1",
       "private": true,
       "homepage": "http://localhost:3000/login",

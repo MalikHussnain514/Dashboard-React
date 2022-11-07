@@ -10,7 +10,7 @@ import CustomTable from 'shared/components/table/CustomTable';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector, useDispatch } from 'react-redux';
-import { patientListAction, patientAddAction, patientDeleteAction, patientEditAction } from '../../store/actions/patient';
+import { botListAction, botAddAction, botDeleteAction, botEditAction } from '../../store/actions/bot';
 import { Button, Card, CardActions, CardHeader, Grid, IconButton, Typography } from '@mui/material';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
@@ -26,9 +26,9 @@ import CustomDialogbox from 'shared/components/dialogbox/CustomDialogbox';
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170, align: 'center' },
-    { id: 'assigneddomain', label: 'Assigned Domain', minWidth: 170, align: 'center' },
+    { id: 'assignedDomain', label: 'Assigned Domain', minWidth: 170, align: 'center' },
     {
-        id: 'assignedemail',
+        id: 'assignedEmail',
         label: 'Assigned Email',
         minWidth: 170,
         align: 'center',
@@ -45,28 +45,27 @@ const columns = [
     }
 ];
 
-function createData(name, assigneddomain, assignedemail, botFlowId, action) {
-    return { name, assigneddomain, assignedemail, botFlowId, action };
+function createData(name, assignedDomain, assignedEmail, botFlowId, action) {
+    return { name, assignedDomain, assignedEmail, botFlowId, action };
 }
 
 const BotList = () => {
     const theme = useTheme();
-    const [patientDeleteData, setPatientDeleteData] = useState();
+    const [botDeleteData, setBotDeleteData] = useState();
 
     const [openDelete, setOpenDelete] = useState(false);
 
     const [openModal, setOpenModal] = useState(false);
-    const [addPatient, setAddPatient] = useState(false);
-    const [editPatient, setEditPatient] = useState(false);
+    const [addBot, setAddBot] = useState(false);
+    const [editBot, setEditBot] = useState(false);
 
     const [initialValues, setInitialValues] = useState({
+        _id: '',
         name: '',
-        assigneddomain: '',
-        assignedemail: '',
+        assignedDomain: '',
+        assignedEmail: '',
         botFlowId: ''
     });
-
-    const [date, setDate] = useState(new Date());
 
     const Input = styled('input')({
         display: 'none'
@@ -77,45 +76,40 @@ const BotList = () => {
     };
 
     const dispatch = useDispatch();
-    const { patientList, success, error, loading } = useSelector((state) => state.patientList);
+    const { botList, success, error, loading } = useSelector((state) => state.botList);
 
-    const {
-        success: patientDeleteSuccess,
-        error: patientDeleteError,
-        loading: patientDeleteLoading
-    } = useSelector((state) => state.patientDelete);
+    const { success: botDeleteSuccess } = useSelector((state) => state.botDelete);
 
-    const { success: patientAddSuccess, error: patientAddError, loading: patientAddLoading } = useSelector((state) => state?.patientAdd);
+    const { success: botAddSuccess, loading: botAddLoading } = useSelector((state) => state?.botAdd);
 
-    const { success: patientEditSuccess, error: patientEditError, loading: patientEditLoading } = useSelector((state) => state.patientEdit);
+    const { success: botEditSuccess, error: botEditError, loading: botEditLoading } = useSelector((state) => state.botEdit);
 
     const handleCloseDeleteYes = () => {
-        console.log(patientDeleteData);
-        debugger;
-        dispatch(patientDeleteAction(patientDeleteData._id));
+        dispatch(botDeleteAction(botDeleteData._id));
         setOpenDelete(false);
     };
 
-    const addPatientHandler = () => {
+    const addBotHandler = () => {
         setOpenModal(true);
-        setEditPatient(false);
-        setAddPatient(true);
+        setEditBot(false);
+        setAddBot(true);
         setInitialValues({
             name: '',
-            assigneddomain: '',
-            assignedemail: '',
+            assignedDomain: '',
+            assignedEmail: '',
             botFlowId: ''
         });
     };
 
     const handleEditClick = (e, p) => {
         setOpenModal(true);
-        setAddPatient(false);
-        setEditPatient(true);
+        setAddBot(false);
+        setEditBot(true);
         setInitialValues({
+            _id: p._id,
             name: p.name,
-            assigneddomain: p.assigneddomain,
-            assignedemail: p.assignedemail,
+            assignedDomain: p.assignedDomain,
+            assignedEmail: p.assignedEmail,
             botFlowId: p.botFlowId
         });
     };
@@ -123,7 +117,7 @@ const BotList = () => {
     const handleDeleteClick = (e, p) => {
         e.preventDefault();
 
-        setPatientDeleteData(p);
+        setBotDeleteData(p);
 
         setOpenDelete(true);
     };
@@ -131,46 +125,39 @@ const BotList = () => {
     const handleClose = () => {
         setInitialValues({
             name: '',
-            assigneddomain: '',
-            assignedemail: '',
+            assignedDomain: '',
+            assignedEmail: '',
             botFlowId: ''
         });
         setOpenModal(false);
-        setEditPatient(!editPatient);
-        setAddPatient(!addPatient);
+        setEditBot(!editBot);
+        setAddBot(!addBot);
     };
 
-    const handleChange = (newValue) => {
-        setDate(newValue);
-        if (editPatient) {
-            setInitialValues({ ...initialValues, dateOfBirth: newValue });
-        }
-    };
-
-    const rowData = patientList?.map((patient) => {
+    const rowData = botList?.map((bot) => {
         return createData(
-            patient.name,
-            patient.assigneddomain,
-            patient.assignedemail,
-            patient.botFlowId,
+            bot.name,
+            bot.assignedDomain,
+            bot.assignedEmail,
+            bot.botFlowId,
             <span>
                 <IconButton aria-label="update">
-                    <EditIcon style={{ fill: '#008CBA' }} onClick={(event) => handleEditClick(event, patient)} />
+                    <EditIcon style={{ fill: '#008CBA' }} onClick={(event) => handleEditClick(event, bot)} />
                 </IconButton>
 
                 <IconButton aria-label="delete">
-                    <DeleteIcon style={{ fill: '#a92920' }} onClick={(event) => handleDeleteClick(event, patient)} />
+                    <DeleteIcon style={{ fill: '#a92920' }} onClick={(event) => handleDeleteClick(event, bot)} />
                 </IconButton>
             </span>
         );
     });
 
     useEffect(() => {
-        dispatch(patientListAction());
-        if (patientAddSuccess || patientEditSuccess) {
+        dispatch(botListAction());
+        if (botAddSuccess || botEditSuccess) {
             setOpenModal(false);
         }
-    }, [dispatch, patientAddSuccess, patientEditSuccess, patientDeleteSuccess]);
+    }, [dispatch, botAddSuccess, botEditSuccess, botDeleteSuccess]);
 
     return (
         <>
@@ -179,36 +166,27 @@ const BotList = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <CardHeader title="Bots List" />
                         <CardActions>
-                            <Button variant="contained" onClick={addPatientHandler}>
+                            <Button variant="contained" onClick={addBotHandler}>
                                 Add Bot
                             </Button>
                         </CardActions>
                     </div>
-                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                        {patientList && <CustomTable columns={columns} rows={rowData} />}
-                    </Paper>
+                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>{botList && <CustomTable columns={columns} rows={rowData} />}</Paper>
                 </Card>
             </LoadingWrapper>
-            {addPatient && (
+            {addBot && (
                 <CustomModal open={openModal} handleClose={handleClose}>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={Yup.object({
                             name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-                            assigneddomain: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+                            assignedDomain: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
 
-                            assignedemail: Yup.string().email('Invalid Email').required('Required!'),
+                            assignedEmail: Yup.string().email('Invalid Email').required('Required!'),
                             botFlowId: Yup.string().min(1, 'Too Short!').max(15, 'Too Long!').required('Required')
                         })}
                         onSubmit={async (values, { setSubmitting, setErrors, setFieldValue }) => {
-                            const formData = new FormData();
-                            formData.append('name', values.name);
-                            formData.append('assigneddomain', values.assigneddomain);
-
-                            formData.append('assignedemail', values.assignedemail);
-                            formData.append('botFlowId', values.botFlowId);
-
-                            dispatch(patientAddAction(formData));
+                            dispatch(botAddAction(values));
                         }}
                     >
                         <Form className="d-flex flex-column">
@@ -224,18 +202,18 @@ const BotList = () => {
                                     <FormikField variant="outlined" type="text" name="name" label="Bot Name" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <FormikField variant="outlined" type="text" name="assigneddomain" label="Assigned Domain" />
+                                    <FormikField variant="outlined" type="text" name="assignedDomain" label="Assign Domain" />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="email" name="assignedemail" label="Email" />
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="text" name="botFlowId" label="Id" />
+                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="email" name="assignedEmail" label="Assign Email" />
                                 </Grid>
 
                                 <Grid item xs={6}>
-                                    <CustomButton fullWidth type="submit" title="Register" loading={patientAddLoading} />
+                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="text" name="botFlowId" label="Bot Id" />
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <CustomButton fullWidth type="submit" title="Register" loading={botAddLoading} />
                                 </Grid>
                             </Grid>
                         </Form>
@@ -243,27 +221,18 @@ const BotList = () => {
                 </CustomModal>
             )}
 
-            {editPatient && (
+            {editBot && (
                 <CustomModal open={openModal} handleClose={handleClose}>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={Yup.object({
                             name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-                            assigneddomain: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-                            assignedemail: Yup.string().email('Invalid Email').required('Required!'),
-                            botFlowId: Yup.string().min(2, 'Too Short!').max(15, 'Too Long!').required('Required')
+                            assignedDomain: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+                            assignedEmail: Yup.string().email('Invalid Email').required('Required!'),
+                            botFlowId: Yup.string().min(1, 'Too Short!').max(15, 'Too Long!').required('Required')
                         })}
                         onSubmit={async (values, { setSubmitting, setErrors, setFieldValue }) => {
-                            const formData = new FormData();
-
-                            formData.append('name', values.name);
-                            formData.append('assigneddomain', values.assigneddomain);
-
-                            formData.append('assignedemail', values.assignedemail);
-                            // formData.append('botFlowId', values.botFlowId);
-                            debugger;
-                            dispatch(patientEditAction(values.botFlowId, formData));
-                            debugger;
+                            dispatch(botEditAction(values));
                         }}
                     >
                         <Form className="d-flex flex-column">
@@ -279,14 +248,24 @@ const BotList = () => {
                                     <FormikField sx={{ mt: 3 }} variant="outlined" type="text" name="name" label="Bot Name" />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <FormikField sx={{ mt: 3 }} variant="outlined" type="text" name="assigneddomain" label="Bot Domain" />
+                                    <FormikField
+                                        sx={{ mt: 3 }}
+                                        variant="outlined"
+                                        type="text"
+                                        name="assignedDomain"
+                                        label="Assign Domain"
+                                    />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="email" name="assignedemail" label="Email" />
+                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="email" name="assignedEmail" label="Email" />
                                 </Grid>
 
                                 <Grid item xs={6}>
-                                    <CustomButton fullWidth type="submit" title="Update" loading={patientEditLoading} />
+                                    <FormikField sx={{ mt: 2 }} variant="outlined" type="text" name="botFlowId" label="Bot Id" />
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <CustomButton fullWidth type="submit" title="Update" loading={botEditLoading} />
                                 </Grid>
                             </Grid>
                         </Form>
@@ -294,7 +273,7 @@ const BotList = () => {
                 </CustomModal>
             )}
             <CustomDialogbox openDelete={openDelete} handleCloseDelete={handleCloseDelete} handleCloseDeleteYes={handleCloseDeleteYes} />
-            {!loading && !patientList && (
+            {!loading && !botList && (
                 <div
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '140px' }}
                 >

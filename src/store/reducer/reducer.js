@@ -1,14 +1,7 @@
 import { combineReducers } from 'redux';
 import { userLoginReducer } from './auth';
-import {
-    patientListReducer,
-    patientAddReducer,
-    patientEditReducer,
-    patientDeleteReducer,
-    allDoctorsAgainstPateintsReducer,
-    postDoctorsIdReducer
-} from './patient';
-import { doctorListReducer, doctorAddReducer, doctorEditReducer, doctorDeleteReducer } from './doctorReducer';
+import { botListReducer, botAddReducer, botEditReducer, botDeleteReducer } from './botReducer';
+import { emailListReducer, emailDeleteReducer } from './emailReducer';
 
 // reducer import
 import customizationReducer from './customizationReducer';
@@ -18,17 +11,14 @@ import customizationReducer from './customizationReducer';
 const reducer = combineReducers({
     customization: customizationReducer,
     userLogin: userLoginReducer,
-    patientList: patientListReducer,
-    allDoctorsId: allDoctorsAgainstPateintsReducer,
-    postDoctorsId: postDoctorsIdReducer,
-    patientAdd: patientAddReducer,
-    patientEdit: patientEditReducer,
-    patientDelete: patientDeleteReducer,
 
-    doctorList: doctorListReducer,
-    doctorAdd: doctorAddReducer,
-    doctorEdit: doctorEditReducer,
-    doctorDelete: doctorDeleteReducer
+    botList: botListReducer,
+    botAdd: botAddReducer,
+    botEdit: botEditReducer,
+    botDelete: botDeleteReducer,
+
+    emailList: emailListReducer,
+    emailDelete: emailDeleteReducer
 });
 
 export default reducer;

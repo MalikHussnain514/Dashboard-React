@@ -9,7 +9,7 @@ export const login = (userData, navigate) => async (dispatch) => {
             type: USER_LOGIN_REQUEST
         });
 
-        const url = `${config.SERVER_IP}/doctor/logindocto`;
+        const url = `${config.SERVER_IP}/auth/signin`;
 
         const { data } = await Axios.post(`${url}`, userData);
         localStorage.setItem('user', JSON.stringify(data));
@@ -22,7 +22,7 @@ export const login = (userData, navigate) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error?.response && error?.response?.data?.Message
+            payload: error?.response && error?.response?.data?.message
         });
     }
 };
